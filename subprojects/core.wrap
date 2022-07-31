@@ -1,0 +1,7 @@
+[wrap-git]
+url = https://github.com/izkeas/Core.git
+revision = master
+depth = 1
+
+[provide]
+core=core_dep

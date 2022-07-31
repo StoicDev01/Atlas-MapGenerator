@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp",
+        "fstream": "cpp",
+        "sstream": "cpp",
+        "map": "cpp",
+        "system_error": "cpp",
+        "*.tcc": "cpp",
+        "atomic": "cpp"
+    },
+    "mesonbuild.configureOnOpen": false
+}

@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Linux-to-Linux",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/subprojects/core/src",
+                "${workspaceFolder}/subprojects/fastnoiselite/Cpp",
+                "${workspaceFolder}/subprojects/gleq",
+                "${workspaceFolder}/subprojects/imgui-1.87",
+                "${workspaceFolder}/subprojects/stb"
+
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/subprojects/core/src/*",
+                    "${workspaceFolder}/subprojects/fastnoiselite/Cpp/*",
+                    "${workspaceFolder}/subprojects/gleq/*",
+                    "${workspaceFolder}/subprojects/imgui-1.87/*",
+                    "${workspaceFolder}/subprojects/stb/*"
+                ]  
+            }
+        }
+    ],
+    "version": 4
+}

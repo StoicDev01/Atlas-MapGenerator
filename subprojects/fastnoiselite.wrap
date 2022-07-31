@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/Auburn/FastNoiseLite.git
+revision = master
+depth = 1
+patch_directory = fastnoiselite_patch
+
+[provide]
+fastnoiselite= fastnoiselite_dep
