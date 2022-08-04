@@ -16,11 +16,11 @@ namespace gui{
                     auto preset_path = directory_entry.path();
 
                     // on click on preset
-                    if (ImGui::MenuItem(preset_path.filename().c_str(), nullptr)){
+                    if (ImGui::MenuItem((const char*)preset_path.filename().u8string().c_str(), nullptr)){
                         // load template
                         map.load_from_template(preset_path);
                         // generate map
-                        map.generate("Biome map");
+                        map.generate(MapGenerator::draw_modes::COLOR_MAP);
                     }
                 }
                 ImGui::EndMenu();
@@ -90,7 +90,7 @@ namespace scenes{
     }
 
     void WorldTemplateCreator::init(){
-        float size = 1000.0f;
+        float size = 800.0f;
         int width,height;
         map_viewer.init(m_window);;
 

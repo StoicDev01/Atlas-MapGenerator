@@ -28,7 +28,7 @@ Object WorldObjects::get_by_id(uint id){
 }
 */
 
-MapGenerator::MapGenerator(uint size_x, uint size_y){
+MapGenerator::MapGenerator(uint32_t size_x, uint32_t size_y){
     m_settings.m_size_x = size_x;
     m_settings.m_size_y = size_y;
     m_settings.m_seed_input = 1;
@@ -178,11 +178,9 @@ void MapGenerator::initialize(){
     m_noise.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
     m_noise.SetFractalType(FastNoiseLite::FractalType_FBm);
     m_noise.SetSeed(1);
-
-    m_sprite.m_scale = core::Vector3f(0.5, 0.5, 1.0f);
 }
 
-void MapGenerator::generate(const char* draw_mode){
+void MapGenerator::generate(draw_modes draw_mode){
     m_noise.SetSeed(m_settings.m_seed_input);
     m_noise.SetFractalOctaves(m_settings.m_octaves_slider);
     m_noise.SetFrequency(m_settings.m_frequency_slider * 0.01);
@@ -356,10 +354,10 @@ float MapGenerator::get_humidity_from(float x, float y, bool use_map_data = true
     return relative_humidity;
 }
 
-core::graphics::Color MapGenerator::get_color_from(float x, float y, const char* draw_mode, bool use_map_data = true){
+core::graphics::Color MapGenerator::get_color_from(float x, float y, draw_modes draw_mode, bool use_map_data = true){
     core::graphics::Color color;
 
-    if (draw_mode == "Biome map"){
+    if (draw_mode == draw_modes::COLOR_MAP){
         Biome* biome_xy;
 
         if (use_map_data){
@@ -377,37 +375,7 @@ core::graphics::Color MapGenerator::get_color_from(float x, float y, const char*
         }
     }
 
-    else if (draw_mode == "Temperature Map"){
-        float temperature_value;
-
-        if (use_map_data){
-            temperature_value = m_temperature_map[x][y];
-        }
-        else{
-            temperature_value = get_temperature_from(x, y);
-        }
-
-        // invert so the coldest parts turn white
-        temperature_value = (temperature_value - 1) * -1;
-        color = core::graphics::Color(255 * temperature_value, 255 * temperature_value, 255 * temperature_value, 255 );
-    }
-
-    else if (draw_mode == "Humidity Map"){
-        float humidity_value;
-
-        if (use_map_data){
-            humidity_value = m_humidity_map[x][y];
-        }
-        else{
-            humidity_value = get_humidity_from(x, y);
-        }
-
-        // transform in a range of 0 to 1
-        humidity_value = humidity_value * 0.01;
-        color = core::graphics::Color(255 *humidity_value , 255 * humidity_value, 255 * humidity_value, 255);
-
-    }
-    else if (draw_mode == "Noise"){
+    else if (draw_mode == draw_modes::NOISE_MAP){
         float noise_value;
 
         if (use_map_data){
@@ -429,7 +397,39 @@ core::graphics::Color MapGenerator::get_color_from(float x, float y, const char*
 
         color = core::graphics::Color(255 * normalized_value, 255 * normalized_value, 255 * normalized_value, 255 );
     }
-    else if (draw_mode == "Fallof"){
+    
+    else if (draw_mode == draw_modes::TEMPERATURE_MAP){
+        float temperature_value;
+
+        if (use_map_data){
+            temperature_value = m_temperature_map[x][y];
+        }
+        else{
+            temperature_value = get_temperature_from(x, y);
+        }
+
+        // invert so the coldest parts turn white
+        temperature_value = (temperature_value - 1) * -1;
+        color = core::graphics::Color(255 * temperature_value, 255 * temperature_value, 255 * temperature_value, 255 );
+    }
+
+    else if (draw_mode == draw_modes::HUMIDITY_MAP){
+        float humidity_value;
+
+        if (use_map_data){
+            humidity_value = m_humidity_map[x][y];
+        }
+        else{
+            humidity_value = get_humidity_from(x, y);
+        }
+
+        // transform in a range of 0 to 1
+        humidity_value = humidity_value * 0.01;
+        color = core::graphics::Color(255 *humidity_value , 255 * humidity_value, 255 * humidity_value, 255);
+
+    }
+
+    else if (draw_mode == draw_modes::FALLOF_MAP){
         float noise_value = get_fallof_map_from(x, y);
         float normalized_value = noise_value;
 
@@ -443,6 +443,7 @@ core::graphics::Color MapGenerator::get_color_from(float x, float y, const char*
 
         color = core::graphics::Color(255 * normalized_value, 255 * normalized_value, 255 * normalized_value, 255 );
     }
+
     return color;
 }
 
@@ -454,7 +455,7 @@ void MapGenerator::generate_heigh_map(){
     }
 }
 
-void MapGenerator::generate_sprite(const char* draw_mode){
+void MapGenerator::generate_sprite(draw_modes draw_mode){
     core::graphics::Image image(
         core::Vector2u(m_settings.m_size_x, m_settings.m_size_y), core::graphics::Color::red()
     );

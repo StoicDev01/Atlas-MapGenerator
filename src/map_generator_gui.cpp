@@ -24,10 +24,10 @@ namespace gui{
         ImGui::Begin(label, nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
 
         if (ImGui::CollapsingHeader("Generation settings")){
-            const char* draw_modes[] = {"Biome map", "Noise", "Temperature Map", "Humidity Map", "Fallof"};
+            const char* draw_modes_string[] = {"Color Map", "Noise", "Temperature Map", "Humidity Map", "Fallof"};
 
             if (ImGui::TreeNode("Noise settings")){
-                ImGui::Text("Draw Mode  : "); ImGui::SameLine(); ImGui::Combo("##DrawMode", &current_draw_mode, draw_modes, IM_ARRAYSIZE(draw_modes));
+                ImGui::Text("Draw Mode  : "); ImGui::SameLine(); ImGui::Combo("##DrawMode", &current_draw_mode, draw_modes_string, IM_ARRAYSIZE(draw_modes_string));
 
                 ImGui::Text("Seed       : "); ImGui::SameLine(); ImGui::InputInt("##seedInput", &map.m_settings.m_seed_input);
                 ImGui::Text("Octaves    : "); ImGui::SameLine(); ImGui::SliderInt("##octavesslider", &map.m_settings.m_octaves_slider, 0, 10);
@@ -79,7 +79,7 @@ namespace gui{
 
 
             if (ImGui::Button("Generate")){
-                map.generate(draw_modes[current_draw_mode]);
+                map.generate((MapGenerator::draw_modes)current_draw_mode);
             }
         }
 

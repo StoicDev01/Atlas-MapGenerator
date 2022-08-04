@@ -1,0 +1,338 @@
+[
+  {
+    "color": {
+      "a": 255,
+      "b": 163,
+      "g": 83,
+      "r": 2
+    },
+    "height_range": {
+      "max": 30.0,
+      "min": 0.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 0,
+    "interior_block_id": -877998416,
+    "name": "Deep-Ocean",
+    "surface_block_id": 9,
+    "temperature_range": {
+      "max": 100.0,
+      "min": 0.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 245,
+      "g": 128,
+      "r": 9
+    },
+    "height_range": {
+      "max": 40.0,
+      "min": 30.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 1,
+    "interior_block_id": -877998416,
+    "name": "Ocean",
+    "surface_block_id": 9,
+    "temperature_range": {
+      "max": 100.0,
+      "min": 0.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 236,
+      "g": 188,
+      "r": 101
+    },
+    "height_range": {
+      "max": 40.0,
+      "min": 30.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 2,
+    "interior_block_id": -877998416,
+    "name": "Cold-Ocean",
+    "surface_block_id": 32767,
+    "temperature_range": {
+      "max": 0.0,
+      "min": -50.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 181,
+      "g": 138,
+      "r": 56
+    },
+    "height_range": {
+      "max": 30.0,
+      "min": 0.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 3,
+    "interior_block_id": -877998416,
+    "name": "Deep-Cold-Ocean",
+    "surface_block_id": 32767,
+    "temperature_range": {
+      "max": 0.0,
+      "min": -50.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 125,
+      "g": 198,
+      "r": 207
+    },
+    "height_range": {
+      "max": 45.0,
+      "min": 40.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 4,
+    "interior_block_id": -877998416,
+    "name": "beach",
+    "surface_block_id": 7,
+    "temperature_range": {
+      "max": 100.0,
+      "min": 0.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 98,
+      "g": 206,
+      "r": 246
+    },
+    "height_range": {
+      "max": 70.0,
+      "min": 40.0
+    },
+    "humidity_range": {
+      "max": 20.0,
+      "min": 0.0
+    },
+    "index": 5,
+    "interior_block_id": -877998416,
+    "name": "Desert",
+    "surface_block_id": 7,
+    "temperature_range": {
+      "max": 40.0,
+      "min": 0.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 81,
+      "g": 187,
+      "r": 161
+    },
+    "height_range": {
+      "max": 65.0,
+      "min": 50.0
+    },
+    "humidity_range": {
+      "max": 80.0,
+      "min": 60.0
+    },
+    "index": 6,
+    "interior_block_id": -877998416,
+    "name": "Temperate Forest",
+    "surface_block_id": 5,
+    "temperature_range": {
+      "max": 20.0,
+      "min": -30.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 58,
+      "g": 155,
+      "r": 9
+    },
+    "height_range": {
+      "max": 60.0,
+      "min": 45.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 40.0
+    },
+    "index": 7,
+    "interior_block_id": -877998416,
+    "name": "Tropical forest",
+    "surface_block_id": 4,
+    "temperature_range": {
+      "max": 30.0,
+      "min": 20.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 84,
+      "g": 163,
+      "r": 125
+    },
+    "height_range": {
+      "max": 60.0,
+      "min": 45.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 20.0
+    },
+    "index": 8,
+    "interior_block_id": -877998416,
+    "name": "prairie",
+    "surface_block_id": 3,
+    "temperature_range": {
+      "max": 40.0,
+      "min": 0.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 76,
+      "g": 121,
+      "r": 183
+    },
+    "height_range": {
+      "max": 70.0,
+      "min": 50.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 60.0
+    },
+    "index": 9,
+    "interior_block_id": -877998416,
+    "name": "Tundra",
+    "surface_block_id": 2,
+    "temperature_range": {
+      "max": 0.0,
+      "min": -34.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 88,
+      "g": 124,
+      "r": 73
+    },
+    "height_range": {
+      "max": 70.0,
+      "min": 60.0
+    },
+    "humidity_range": {
+      "max": 80.0,
+      "min": 40.0
+    },
+    "index": 10,
+    "interior_block_id": -877998416,
+    "name": "Taiga",
+    "surface_block_id": 1,
+    "temperature_range": {
+      "max": 10.0,
+      "min": -20.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 226,
+      "g": 226,
+      "r": 226
+    },
+    "height_range": {
+      "max": 100.0,
+      "min": 75.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 60.0
+    },
+    "index": 11,
+    "interior_block_id": -877998416,
+    "name": "Mountain Cold Pikes",
+    "surface_block_id": 8,
+    "temperature_range": {
+      "max": 0.0,
+      "min": -50.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 129,
+      "g": 129,
+      "r": 129
+    },
+    "height_range": {
+      "max": 100.0,
+      "min": 60.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 12,
+    "interior_block_id": -877998416,
+    "name": "Mountains",
+    "surface_block_id": 6,
+    "temperature_range": {
+      "max": 100.0,
+      "min": -50.0
+    }
+  },
+  {
+    "color": {
+      "a": 255,
+      "b": 246,
+      "g": 246,
+      "r": 246
+    },
+    "height_range": {
+      "max": 60.0,
+      "min": 0.0
+    },
+    "humidity_range": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "index": 13,
+    "interior_block_id": -877998416,
+    "name": "polar",
+    "surface_block_id": 8,
+    "temperature_range": {
+      "max": 0.0,
+      "min": -100.0
+    }
+  }
+]

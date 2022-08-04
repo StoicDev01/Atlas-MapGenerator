@@ -15,6 +15,7 @@ class MapViewer : public Gui{
     bool show_grid = false;
     bool draw_chunk = false;
     bool show_chunk_map = false;
+    bool can_drag_camera = false;
     const char* view_mode = "map";
     
     MapViewer(MapGenerator& map, core::graphics::View2D& camera);

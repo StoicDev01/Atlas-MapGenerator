@@ -9,7 +9,7 @@ sources = files(
     'world_template_creator.cpp'
 )
 
-dependencies = [core_dep, fastnoiselite_dep]
+dependencies = [core_dep, fastnoiselite_dep, json_dep, magic_enum_dep]
 
 executable(
     'Map Generator',

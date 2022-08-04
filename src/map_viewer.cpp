@@ -14,7 +14,7 @@ void MapViewer::init(core::graphics::Window& window){
 
     // set map position
     map.m_sprite.m_position =  core::Vector3f(
-        -0,0,0
+        -0.3,0.1,0
     );
 }
 
@@ -30,13 +30,16 @@ void MapViewer::update(float delta, core::graphics::Window& window){
     ImVec2 mouse_delta = ImGui::GetMouseDragDelta();
     //core::Vector2f map_position = map.m_sprite.m_position;
     
-    camera.m_position =(
-        core::Vector3f(
-            camera.m_position.x + mouse_delta.x * delta,
-            camera.m_position.y - mouse_delta.y * delta,
-            -1
-        )
-    );
+    if (can_drag_camera){
+        camera.m_position =(
+            core::Vector3f(
+                camera.m_position.x + mouse_delta.x * delta,
+                camera.m_position.y - mouse_delta.y * delta,
+                -1
+            )
+        );
+    }
+
 }
 
 void MapViewer::draw(core::graphics::Window& window){
@@ -46,12 +49,19 @@ void MapViewer::draw(core::graphics::Window& window){
 
 void MapViewer::handle_event(core::Event event){
     // move map
+
     if (event.type == GLEQ_BUTTON_PRESSED){
-        if (event.mouse.button == GLFW_MOUSE_BUTTON_RIGHT){
-            ImGui::ResetMouseDragDelta();
+        if (event.mouse.button == GLFW_MOUSE_BUTTON_LEFT){
+            can_drag_camera =true;
         }
     }
-    
+
+    if (event.type == GLEQ_BUTTON_RELEASED){
+        if (event.mouse.button == GLFW_MOUSE_BUTTON_LEFT){
+            can_drag_camera = false;
+        }
+    }
+
     // zoom in and zoom out
     if (event.type == GLEQ_SCROLLED){
         int mouse_wheel_delta = -event.scroll.y;

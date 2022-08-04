@@ -1,3 +1,5 @@
 subprojects/*
 !subprojects/*.wrap
 subprojects/packagecache
+build
+build-mingw

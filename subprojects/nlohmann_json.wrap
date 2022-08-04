@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/nlohmann/json.git
+revision = develop
+depth = 1
+
+[provide]
+nlohmann_json = nlohmann_json_dep
+

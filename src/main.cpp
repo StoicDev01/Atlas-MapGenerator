@@ -34,7 +34,10 @@ void client(){
                 window.close();
             }
 
-            current_scene->handle_event(event);
+            if (!window.imgui_want_capture(event)){
+                current_scene->handle_event(event);
+            }
+
             core::free_event(event);
         }
 

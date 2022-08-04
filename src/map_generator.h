@@ -103,6 +103,15 @@ class MapGeneratorSettings{
 // Main Map generator class
 class MapGenerator{
     public:
+
+    enum class draw_modes {
+        COLOR_MAP = 0,
+        NOISE_MAP,
+        TEMPERATURE_MAP,
+        HUMIDITY_MAP,
+        FALLOF_MAP,
+    };
+
     // list of map biomes
     Biomes m_biomes;
     
@@ -132,7 +141,7 @@ class MapGenerator{
     bool save_to_template(std::string name);
 
     void initialize();
-    void generate(const char* draw_mode);
+    void generate(draw_modes draw_mode);
 
     // functions to get data from x and y
     float   get_height_from(float x, float y);
@@ -140,11 +149,11 @@ class MapGenerator{
     float   get_temperature_from(float x, float y, bool use_map_data);
     Biome*  get_biome_from(float x, float y, bool use_map_data);
     float   get_humidity_from(float x, float y, bool use_map_data);
-    core::graphics::Color get_color_from(float x, float y, const char* draw_mode, bool use_map_data);
+    core::graphics::Color get_color_from(float x, float y, draw_modes draw_mode, bool use_map_data);
 
     // functions to generate maps
     void generate_heigh_map();
-    void generate_sprite(const char* draw_mode);
+    void generate_sprite(draw_modes draw_mode);
     void generate_fallof_map();
     void generate_temperature_map();
     void generate_biome_map();
