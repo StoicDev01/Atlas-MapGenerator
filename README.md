@@ -28,3 +28,9 @@ windows needs mingw, download and install [mingw](https://github.com/niXman/ming
         meson setup build-mingw --cross-file mingw_cross.txt
         meson compile -C build-mingw
         ./build-mingw/src/example/Example.exe
+
+## Atlas Uses the following libraries
+- Core framework
+- fastnoiselite
+- nlohmann_json
+- magic_enum
