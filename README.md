@@ -1,5 +1,5 @@
 # Atlas MapGenerator
-A C++ Map Generator 
+A C++ Map Generator.
 This project uses [Core framework](https://github.com/izkeas/Core) 
 
 ![Map generator Image](./MapGenerator.png "Map Generator Image")
