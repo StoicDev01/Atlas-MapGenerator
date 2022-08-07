@@ -95,8 +95,12 @@ namespace gui{
             }
 
             else if (save_type == SaveTypes::IMAGE){
-                core::graphics::Image map_image = map.m_sprite.get_texture()->get_image();
-                map_image.save( std::filesystem::path("data/images") / save_path);
+                core::graphics::Texture* map_texture = map.m_sprite.get_texture();
+
+                if (map_texture){
+                    core::graphics::Image map_image = map_texture->get_image();
+                    map_image.save( std::filesystem::path("data/images") / save_path);
+                }
             }
 
             show_save_window = false;
