@@ -48,27 +48,55 @@ namespace gui{
         static ImVec2 save_window_size;
         ImGui::SetNextWindowPos(ImVec2(window_size.x / 2 - save_window_size.x / 2, window_size.y /2 - save_window_size.y / 2));
         ImGui::Begin("Saving", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-        ImGui::Text("Template Name: "); 
+
+        if (save_type == SaveTypes::TEMPLATE){
+            ImGui::Text("Template Name: ");
+            ImGui::SameLine();
+            ImGui::TextDisabled("(?)");
+
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::PushTextWrapPos(450.0f);
+                ImGui::TextUnformatted("This will save a new world template to ./data/world templates/{name}");
+                ImGui::PopTextWrapPos();
+                ImGui::EndTooltip();
+            }
+        }
+        if (save_type == SaveTypes::IMAGE){
+            ImGui::Text("Image Name: ");
+            ImGui::SameLine();
+            ImGui::TextDisabled("(?)");
+
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::PushTextWrapPos(450.0f);
+                ImGui::TextUnformatted("This will save a new image to ./data/images/{name}");
+                ImGui::PopTextWrapPos();
+                ImGui::EndTooltip();
+            }
+        }
+
         ImGui::SameLine();
 
         static std::string save_path;
 
         ImGui::InputText("##SaveInput", &save_path);
 
+        // Set buttons to the right
         if (ImGui::Button("Cancel")){
             show_save_window = false;
         }
 
-        if (ImGui::Button("Save")){
-            // save
+        ImGui::SameLine();
 
+        if (ImGui::Button("Save")){
             if (save_type == SaveTypes::TEMPLATE){
                 map.save_to_template(save_path);
             }
 
             else if (save_type == SaveTypes::IMAGE){
                 core::graphics::Image map_image = map.m_sprite.get_texture()->get_image();
-                map_image.save(save_path);
+                map_image.save( std::filesystem::path("data/images") / save_path);
             }
 
             show_save_window = false;
