@@ -77,6 +77,11 @@ namespace gui{
                 ImGui::TreePop();
             }
 
+            ImGuiStyle& style =ImGui::GetStyle();
+
+            this->AlignForWidth(
+                ImGui::CalcTextSize("Generate").x + style.FramePadding.x * 2
+            );
 
             if (ImGui::Button("Generate")){
                 map.generate((MapGenerator::draw_modes)current_draw_mode);

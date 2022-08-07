@@ -32,6 +32,12 @@ namespace gui{
     void MainMenuBar::save_menu(){
         if (ImGui::BeginMenu("Save")){
             if (ImGui::MenuItem("Save template")){
+                save_type = SaveTypes::TEMPLATE;
+                show_save_window = true;
+            }
+
+            if (ImGui::MenuItem("Save png image")){
+                save_type = SaveTypes::IMAGE;
                 show_save_window = true;
             }
             ImGui::EndMenu();
@@ -49,9 +55,22 @@ namespace gui{
 
         ImGui::InputText("##SaveInput", &save_path);
 
+        if (ImGui::Button("Cancel")){
+            show_save_window = false;
+        }
+
         if (ImGui::Button("Save")){
             // save
-            map.save_to_template(save_path);
+
+            if (save_type == SaveTypes::TEMPLATE){
+                map.save_to_template(save_path);
+            }
+
+            else if (save_type == SaveTypes::IMAGE){
+                core::graphics::Image map_image = map.m_sprite.get_texture()->get_image();
+                map_image.save(save_path);
+            }
+
             show_save_window = false;
         }
 

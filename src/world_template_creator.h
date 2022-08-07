@@ -17,9 +17,18 @@ namespace scenes{
 namespace gui {
     class MainMenuBar : public Gui {
         public:
+
+        enum class SaveTypes {
+            IMAGE,
+            TEMPLATE
+        };
+
+        SaveTypes save_type;
+
         ImVec2 current_size;
         ImVec2 window_size;
         bool show_save_window = false;
+
 
         MainMenuBar(::MapGenerator& map);
 
