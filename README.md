@@ -19,7 +19,7 @@ this project uses meson as build system, to build do the following:
 
 Meson will download all required libraries and compile, then run the example with:
 
-        ./build/src/example/Example
+        ./build/src/Map\ Generator
 
 ### Windows
 
@@ -27,7 +27,7 @@ windows needs mingw, download and install [mingw](https://github.com/niXman/ming
 
         meson setup build-mingw --cross-file mingw_cross.txt
         meson compile -C build-mingw
-        ./build-mingw/src/example/Example.exe
+        ./build/src/Map Generator.exe
 
 ## Atlas Uses the following libraries
 - Core framework
