@@ -54,9 +54,7 @@ namespace gui{
                 ImGui::Text("Max elevation                "); ImGui::SameLine(); ImGui::SliderFloat("##minel", &map.m_settings.m_max_elevation, 0, 500);
                 ImGui::Text("sea level                    "); ImGui::SameLine(); ImGui::SliderFloat("##sealevel", &map.m_settings.m_sea_level, map.m_settings.m_min_elevation, map.m_settings.m_max_elevation);
                 ImGui::TreePop();
-
             }
-
             if (ImGui::TreeNode("Temperature Settings")){
                 ImGui::Text("min temperature latitude      "); ImGui::SameLine(); ImGui::SliderFloat("##mtl", &map.m_settings.m_min_temperature_latitude, -1000, 1000);
                 ImGui::Text("max temperature latitude      "); ImGui::SameLine(); ImGui::SliderFloat("##xtl", &map.m_settings.m_max_temperature_latitude, -1000, 1000);
