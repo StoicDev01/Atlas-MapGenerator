@@ -51,7 +51,7 @@ namespace gui{
 
             if (ImGui::TreeNode("Elevation settings")){
                 ImGui::Text("Min elevation                "); ImGui::SameLine(); ImGui::SliderFloat("##maxel", &map.m_settings.m_min_elevation, 0, 500);
-                ImGui::Text("Max elevation                "); ImGui::SameLine(); ImGui::SliderFloat("##minel", &map.m_settings.m_min_elevation, 0, 500);
+                ImGui::Text("Max elevation                "); ImGui::SameLine(); ImGui::SliderFloat("##minel", &map.m_settings.m_max_elevation, 0, 500);
                 ImGui::Text("sea level                    "); ImGui::SameLine(); ImGui::SliderFloat("##sealevel", &map.m_settings.m_sea_level, map.m_settings.m_min_elevation, map.m_settings.m_max_elevation);
                 ImGui::TreePop();
 
