@@ -1,6 +1,5 @@
 #include "core/core.h"
-#include "world_template_creator.h"
-
+#include "map_generator_scene.h"
 #include "GLFW/glfw3.h"
 #include "thread"
 
@@ -50,7 +49,7 @@ void client(){
 int main(){
     window.create_context();
 
-    current_scene = new scenes::WorldTemplateCreator(window);
+    current_scene = new scenes::AtlasScene(window);
     current_scene->init();
 
     std::thread logic_thread(logic);

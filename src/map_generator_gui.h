@@ -4,6 +4,7 @@
 #include "gui.h"
 #include "map_generator.h"
 #include "map_viewer.h"
+#include "atlas_utils.h"
 
 
 namespace gui{
@@ -33,5 +34,31 @@ namespace gui{
         
         private:
         MapGenerator& map;
+    };
+
+    class MainMenuBar : public Gui {
+        public:
+
+        enum class SaveTypes {
+            IMAGE,
+            TEMPLATE
+        };
+
+        SaveTypes save_type;
+
+        ImVec2 current_size;
+        ImVec2 window_size;
+        bool show_save_window = false;
+
+
+        MainMenuBar(::MapGenerator& map);
+
+        void load_menu();
+        void save_menu();
+        void save_window(ImVec2 window_size);
+        void draw(core::graphics::Window& window);
+        
+        private:
+        ::MapGenerator& map;
     };
 }

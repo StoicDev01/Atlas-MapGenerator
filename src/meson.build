@@ -4,9 +4,9 @@ sources = files(
     'map_generator_gui.cpp',
     'map_generator.cpp',
     'map_viewer.cpp',
+    'map_generator_scene.cpp',
     'main.cpp',
-    'gui.cpp',
-    'world_template_creator.cpp'
+    'gui.cpp'
 )
 
 dependencies = [core_dep, fastnoiselite_dep, json_dep, magic_enum_dep]

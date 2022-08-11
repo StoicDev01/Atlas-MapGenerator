@@ -273,4 +273,129 @@ namespace gui{
         biomes_window_size_y = ImGui::GetWindowSize().y;
         ImGui::End();
     }
+
+    MainMenuBar::MainMenuBar(MapGenerator& map): 
+        Gui("MainBar"),
+        map(map)
+    {}
+
+    void MainMenuBar::load_menu(){
+        if (ImGui::BeginMenu("Load")){
+            if (ImGui::BeginMenu("Load template")){
+                // load all presets from presets folder
+                // show as menu item
+                for (auto& directory_entry: atlas::iterate_templates_folder()){
+                    auto preset_path = directory_entry.path();
+
+                    // on click on preset
+                    if (ImGui::MenuItem((const char*)preset_path.filename().u8string().c_str(), nullptr)){
+                        // load template
+                        map.load_from_template(preset_path);
+                        // generate map
+                        map.generate(MapGenerator::draw_modes::COLOR_MAP);
+                    }
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+    }
+
+    void MainMenuBar::save_menu(){
+        if (ImGui::BeginMenu("Save")){
+            if (ImGui::MenuItem("Save template")){
+                save_type = SaveTypes::TEMPLATE;
+                show_save_window = true;
+            }
+
+            if (ImGui::MenuItem("Save png image")){
+                save_type = SaveTypes::IMAGE;
+                show_save_window = true;
+            }
+            ImGui::EndMenu();
+        }
+    }
+
+    void MainMenuBar::save_window(ImVec2 window_size){
+        static ImVec2 save_window_size;
+        ImGui::SetNextWindowPos(ImVec2(window_size.x / 2 - save_window_size.x / 2, window_size.y /2 - save_window_size.y / 2));
+        ImGui::Begin("Saving", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+        if (save_type == SaveTypes::TEMPLATE){
+            ImGui::Text("Template Name: ");
+            ImGui::SameLine();
+            ImGui::TextDisabled("(?)");
+
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::PushTextWrapPos(450.0f);
+                ImGui::TextUnformatted("This will save a new world template to ./data/world templates/{name}");
+                ImGui::PopTextWrapPos();
+                ImGui::EndTooltip();
+            }
+        }
+        if (save_type == SaveTypes::IMAGE){
+            ImGui::Text("Image Name: ");
+            ImGui::SameLine();
+            ImGui::TextDisabled("(?)");
+
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::PushTextWrapPos(450.0f);
+                ImGui::TextUnformatted("This will save a new image to ./data/images/{name}");
+                ImGui::PopTextWrapPos();
+                ImGui::EndTooltip();
+            }
+        }
+
+        ImGui::SameLine();
+
+        static std::string save_path;
+
+        ImGui::InputText("##SaveInput", &save_path);
+
+        // Set buttons to the right
+        if (ImGui::Button("Cancel")){
+            show_save_window = false;
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Save")){
+            if (save_type == SaveTypes::TEMPLATE){
+                map.save_to_template(save_path);
+            }
+
+            else if (save_type == SaveTypes::IMAGE){
+                core::graphics::Texture* map_texture = map.m_sprite.get_texture();
+
+                if (map_texture){
+                    core::graphics::Image map_image = map_texture->get_image();
+                    map_image.save( std::filesystem::path("data/images") / save_path);
+                }
+            }
+
+            show_save_window = false;
+        }
+
+        save_window_size = ImGui::GetWindowSize();
+        ImGui::End();
+    }
+
+    void MainMenuBar::draw(core::graphics::Window& window){
+        window_size = ImVec2(window.get_size().x, window.get_size().y);
+
+        if (ImGui::BeginMainMenuBar()){
+            current_size = ImGui::GetWindowSize();
+
+            save_menu();
+            load_menu();
+
+            ImGui::EndMainMenuBar();
+        }
+
+        if (show_save_window == true){
+            save_window(window_size);
+        }
+    }
 }
