@@ -3,3 +3,10 @@ subprojects/*
 subprojects/packagecache
 build
 build-mingw
+subprojects/fmt.wrap
+subprojects/gleq.wrap
+subprojects/glew.wrap
+subprojects/glfw3.wrap
+subprojects/glm.wrap
+subprojects/imgui.wrap
+subprojects/stb.wrap
