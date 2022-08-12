@@ -14,7 +14,7 @@ void MapViewer::init(core::graphics::Window& window){
 
     // set map position
     map.m_sprite.m_position =  core::Vector3f(
-        -0.3,0.1,0
+        -500, 100,0
     );
 }
 

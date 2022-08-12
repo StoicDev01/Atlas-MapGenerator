@@ -10,15 +10,22 @@
                 "${workspaceFolder}/subprojects/fastnoiselite/Cpp",
                 "${workspaceFolder}/subprojects/gleq",
                 "${workspaceFolder}/subprojects/imgui-1.87",
-                "${workspaceFolder}/subprojects/stb"
+                "${workspaceFolder}/subprojects/stb",
+                "${workspaceFolder}/subprojects/nlohmann_json/include",
+                "${workspaceFolder}/subprojects/fmt-9.0.0/include",
+                "${workspaceFolder}/subprojects/glew-2.2.0/include",
+                "${workspaceFolder}/subprojects/glfw3/include",
+                "${workspaceFolder}/subprojects/glm-0.9.9.8"
 
             ],
             "browse": {
                 "path": [
+                    "${workspaceFolder}/src/*",
                     "${workspaceFolder}/subprojects/core/src/*",
                     "${workspaceFolder}/subprojects/fastnoiselite/Cpp/*",
                     "${workspaceFolder}/subprojects/gleq/*",
                     "${workspaceFolder}/subprojects/imgui-1.87/*",
+                    "${workspaceFolder}/subprojects/nlohmann_json/include/*",
                     "${workspaceFolder}/subprojects/stb/*"
                 ]  
             }
@@ -38,9 +45,7 @@
                 "${workspaceFolder}/subprojects/fmt-9.0.0/include",
                 "${workspaceFolder}/subprojects/glew-2.2.0/include",
                 "${workspaceFolder}/subprojects/glfw3/include",
-                "${workspaceFolder}/subprojects/glm-0.9.9.8",
-
-
+                "${workspaceFolder}/subprojects/glm-0.9.9.8"
             ],
             "browse": {
                 "path": [

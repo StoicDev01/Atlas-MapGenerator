@@ -13,18 +13,33 @@ namespace scenes{
     }
 
     void AtlasScene::init(){
-        float size = 800.0f;
-        int width,height;
         map_viewer.init(m_window);;
 
-        float aspect = (float)1600 / (float)900;
+        core::Vector2u window_size = m_window.get_size();
 
-        view2d = core::graphics::View2D(-aspect*size, aspect*size, -size, size, 0.1f, 100.0f);
+        view2d.create(
+            -(window_size.x / 2.0),
+             (window_size.x / 2.0),
+            -(window_size.y / 2.0),
+             (window_size.y / 2.0)
+        );
+
         view2d.m_position = core::Vector3f(0,0,-10);
+        view2d.m_scale = core::Vector3f(0.6,0.6, 1.0);
+        
     }
 
     void AtlasScene::handle_event(core::Event event){
         map_viewer.handle_event(event);
+
+        if (event.type == GLEQ_WINDOW_RESIZED){
+            view2d.create(
+                -(event.size.width / 2.0),
+                 (event.size.width / 2.0),
+                -(event.size.height / 2.0),
+                 (event.size.height / 2.0)
+            );
+        }
     }
 
     void AtlasScene::update(float delta){
@@ -33,7 +48,6 @@ namespace scenes{
 
     void AtlasScene::draw(core::graphics::Window& window){
         window.clear(core::graphics::Color(0,0,0,255));
-        glViewport(0, 0, 1600, 900);
 
         mainmenu_bar.draw(window);
         biome_menu.draw(window);
