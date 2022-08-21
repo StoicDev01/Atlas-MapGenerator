@@ -7,7 +7,6 @@ class MapViewer;
 // Gui to view map sprite
 class MapViewer : public Gui{
     public:
-    core::Vector2i mouse_pos;
     core::Vector2i mouse_map_position;
 
     bool first = true;

@@ -24,9 +24,11 @@ namespace scenes{
              (window_size.y / 2.0)
         );
 
-        view2d.m_position = core::Vector3f(0,0,-10);
-        view2d.m_scale = core::Vector3f(0.6,0.6, 1.0);
-        
+        //map_generator.m_sprite.m_rotation = glm::quat(core::Vector3f(glm::radians(180.0f),0,0));
+        view2d.m_position = core::Vector3f(500,-180,0);
+
+        // invert Z axis so the view point towards positive Z axis
+        view2d.m_scale = core::Vector3f(1.8,1.8, -1.0);
     }
 
     void AtlasScene::handle_event(core::Event event){

@@ -13,7 +13,7 @@ namespace scenes{
         core::graphics::View2D view2d;
         core::graphics::Sprite sprite;
         core::graphics::Texture sprite_texture;
-
+        
         MapGenerator map_generator;
         MapViewer map_viewer;
 
