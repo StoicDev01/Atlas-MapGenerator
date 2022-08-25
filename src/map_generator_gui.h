@@ -6,6 +6,10 @@
 #include "map_viewer.h"
 #include "atlas_utils.h"
 
+namespace ImGui{
+    void HelpMarker(std::string info);
+}
+
 
 namespace gui{
 

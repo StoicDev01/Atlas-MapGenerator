@@ -1,5 +1,20 @@
 #include "map_generator_gui.h"
 
+
+namespace ImGui{
+    void HelpMarker(std::string info){
+        ImGui::TextDisabled("(?)");
+
+        if (ImGui::IsItemHovered()) {
+            ImGui::BeginTooltip();
+            ImGui::PushTextWrapPos(450.0f);
+            ImGui::TextUnformatted(info.c_str());
+            ImGui::PopTextWrapPos();
+            ImGui::EndTooltip();
+        }
+    }
+}
+
 namespace gui{
 
     // MapGenerator Menu
@@ -20,22 +35,43 @@ namespace gui{
         map.m_settings.m_fallof_type = fallof_types[map.m_settings.m_current_fallof_type];
 
         ImGui::SetNextWindowPos(ImVec2(((float)window_size.x ) - (size.x), start_position.y));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(400, window_size.y), ImVec2(600, window_size.y));
+
+        ImGui::SetNextWindowSizeConstraints(
+            ImVec2(400, window_size.y), ImVec2(800, window_size.y
+        ));
+
         ImGui::Begin(label, nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
 
         if (ImGui::CollapsingHeader("Generation settings")){
             const char* draw_modes_string[] = {"Color Map", "Noise", "Temperature Map", "Humidity Map", "Fallof"};
 
             if (ImGui::TreeNode("Noise settings")){
-                ImGui::Text("Draw Mode  : "); ImGui::SameLine(); ImGui::Combo("##DrawMode", &current_draw_mode, draw_modes_string, IM_ARRAYSIZE(draw_modes_string));
+                ImGui::Text("Draw Mode   "); ImGui::SameLine(); ImGui::Combo("##DrawMode", &current_draw_mode, draw_modes_string, IM_ARRAYSIZE(draw_modes_string));
+                ImGui::Text("Seed        "); ImGui::SameLine(); ImGui::InputInt("##seedInput", &map.m_settings.m_seed_input);
 
-                ImGui::Text("Seed       : "); ImGui::SameLine(); ImGui::InputInt("##seedInput", &map.m_settings.m_seed_input);
-                ImGui::Text("Octaves    : "); ImGui::SameLine(); ImGui::SliderInt("##octavesslider", &map.m_settings.m_octaves_slider, 0, 10);
-                ImGui::Text("Frequency  : "); ImGui::SameLine(); ImGui::SliderFloat("##frequencySlider", &map.m_settings.m_frequency_slider, 0 , 1);
-                ImGui::Text("Gain       : "); ImGui::SameLine(); ImGui::SliderFloat("##gainSlider", &map.m_settings.m_gain_slider, 0, 1);
-                ImGui::Text("Lacunarity : "); ImGui::SameLine(); ImGui::SliderFloat("##lacunaritySlider", &map.m_settings.m_lacunatiry_slider, 0, 100);
-                ImGui::Text("WeightedStr: "); ImGui::SameLine(); ImGui::SliderFloat("##weightedStrSlider", &map.m_settings.m_weightedStr_slider, 0, 5);
-                ImGui::Text("PingPongStr: "); ImGui::SameLine(); ImGui::SliderFloat("##PingPongStrSlider", &map.m_settings.m_pingPongStr_slider, 0, 100);
+                ImGui::Text("Octaves     "); 
+                ImGui::SameLine(); ImGui::SliderInt("##octavesslider", &map.m_settings.m_octaves_slider, 0, 10);
+                ImGui::SameLine(); ImGui::HelpMarker("The more octaves the more details");
+
+                ImGui::Text("Frequency   "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##frequencySlider", &map.m_settings.m_frequency_slider, 0 , 1);
+                ImGui::SameLine(); ImGui::HelpMarker("The higher the frequency the louder the noise");
+                
+                ImGui::Text("Gain        "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##gainSlider", &map.m_settings.m_gain_slider, 0, 1);
+                ImGui::SameLine(); ImGui::HelpMarker("Set the octave gain");
+
+                ImGui::Text("Lacunarity  "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##lacunaritySlider", &map.m_settings.m_lacunatiry_slider, 0, 100);
+                ImGui::SameLine(); ImGui::HelpMarker("Define how messy the noise is");
+
+                ImGui::Text("WeightedStr "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##weightedStrSlider", &map.m_settings.m_weightedStr_slider, 0, 5);
+                ImGui::SameLine(); ImGui::HelpMarker("Define the octave weighting ");
+
+                ImGui::Text("PingPongStr "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##PingPongStrSlider", &map.m_settings.m_pingPongStr_slider, 0, 100);
+                ImGui::SameLine(); ImGui::HelpMarker("Define the strength of the fractal ping pong effect");
 
                 if (ImGui::RadioButton("Use map fallof ", map.m_settings.m_use_fallof_map)){
                     map.m_settings.m_use_fallof_map = !map.m_settings.m_use_fallof_map;
@@ -43,8 +79,14 @@ namespace gui{
 
                 if (map.m_settings.m_use_fallof_map){
                     ImGui::Text("Fallof type: "); ImGui::SameLine(); ImGui::Combo("##FallofType", &map.m_settings.m_current_fallof_type, fallof_types, IM_ARRAYSIZE(fallof_types));
-                    ImGui::Text("Fallof A   : "); ImGui::SameLine(); ImGui::InputFloat("##FallofA", &map.m_settings.m_fallof_a, 0, 5);
-                    ImGui::Text("Fallof B   : "); ImGui::SameLine(); ImGui::InputFloat("##FallofB", &map.m_settings.m_fallof_b, 0, 5);
+
+                    ImGui::Text("Fallof A    "); 
+                    ImGui::SameLine(); ImGui::InputFloat("##FallofA", &map.m_settings.m_fallof_a, 0, 5);
+                    ImGui::SameLine(); ImGui::HelpMarker("The Edge1 of the smoothstep function");
+
+                    ImGui::Text("Fallof B    "); 
+                    ImGui::SameLine(); ImGui::InputFloat("##FallofB", &map.m_settings.m_fallof_b, 0, 5);
+                    ImGui::SameLine(); ImGui::HelpMarker("The Edge2 of the smoothstep function");
                 }
                 ImGui::TreePop();
             }
@@ -56,22 +98,50 @@ namespace gui{
                 ImGui::TreePop();
             }
             if (ImGui::TreeNode("Temperature Settings")){
-                ImGui::Text("min temperature latitude      "); ImGui::SameLine(); ImGui::SliderFloat("##mtl", &map.m_settings.m_min_temperature_latitude, -1000, 1000);
-                ImGui::Text("max temperature latitude      "); ImGui::SameLine(); ImGui::SliderFloat("##xtl", &map.m_settings.m_max_temperature_latitude, -1000, 1000);
-                ImGui::Text("latitude fallof a             "); ImGui::SameLine(); ImGui::SliderFloat("##lfa", &map.m_settings.m_latitude_a, 0, 5);
-                ImGui::Text("latitude fallof b             "); ImGui::SameLine(); ImGui::SliderFloat("##lfb", &map.m_settings.m_latitude_b, 0, 5);
-                ImGui::Text("Temperature value a           "); ImGui::SameLine(); ImGui::SliderFloat("##tva", &map.m_settings.m_temperature_a, 0, 1);
-                ImGui::Text("Temperature value b           "); ImGui::SameLine(); ImGui::SliderFloat("##tvb", &map.m_settings.m_temperature_b, 0, 2);
-                ImGui::Text("Temperature altitude increment"); ImGui::SameLine(); ImGui::SliderFloat("##tai", &map.m_settings.m_temperature_altitude_increment, 0, 5);
-                ImGui::Text("max world temperature         "); ImGui::SameLine(); ImGui::SliderFloat("##xwt", &map.m_settings.m_max_temperature, -1000, 1000);
-                ImGui::Text("min world temperature         "); ImGui::SameLine(); ImGui::SliderFloat("##mwt", &map.m_settings.m_min_temperature, -1000, 1000);
-                ImGui::Text("temperature noise scale       "); ImGui::SameLine(); ImGui::SliderFloat("##tns", &map.m_settings.m_temperature_noise_scale, 0, 2);
+                ImGui::Text("min temperature latitude "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##mtl", &map.m_settings.m_min_temperature_latitude, -1000, 1000);
+                ImGui::SameLine(); ImGui::HelpMarker("Min Temperature at the poles");
+
+                ImGui::Text("max temperature latitude "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##xtl", &map.m_settings.m_max_temperature_latitude, -1000, 1000);
+                ImGui::SameLine(); ImGui::HelpMarker("Max Temperature at the equator");
+
+                ImGui::Text("latitude temperature a   "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##lfa", &map.m_settings.m_latitude_a, 0, 5);
+                ImGui::SameLine(); ImGui::HelpMarker("Smoothstep function of the latitude Temperature  on edge1");
+
+                ImGui::Text("latitude temperature b   "); 
+                ImGui::SameLine(); ImGui::SliderFloat("##lfb", &map.m_settings.m_latitude_b, 0, 5);
+                ImGui::SameLine(); ImGui::HelpMarker("Smoothstep function of the latitude Temperature  on edge2");
+
+                ImGui::Text("Temperature value a      "); 
+                ImGui::SameLine(); ImGui::InputFloat("##tva", &map.m_settings.m_temperature_a, 0, 1);
+                ImGui::SameLine(); ImGui::HelpMarker("The altitude temperature subtraction multiplier, smaller values ​​make hot places warmer and high values ​​make cold places colder.");
+
+                ImGui::Text("Temperature value b      "); 
+                ImGui::SameLine(); ImGui::InputFloat("##tvb", &map.m_settings.m_temperature_b, 0, 2);
+                ImGui::SameLine(); ImGui::HelpMarker("The altitude temperature subtraction exponent, larger values ​​change how cold it gets at higher locations faster.");
+
+                ImGui::Text("max world temperature    "); 
+                ImGui::SameLine(); ImGui::InputFloat("##xwt", &map.m_settings.m_max_temperature, -1000, 1000);
+                ImGui::SameLine(); ImGui::HelpMarker("Maximum Temperature of the World");
+
+                ImGui::Text("min world temperature    "); 
+                ImGui::SameLine(); ImGui::InputFloat("##mwt", &map.m_settings.m_min_temperature, -1000, 1000);
+                ImGui::SameLine(); ImGui::HelpMarker("Minimum temperature of the world");
+
+                ImGui::Text("temperature noise scale  "); ImGui::SameLine(); ImGui::SliderFloat("##tns", &map.m_settings.m_temperature_noise_scale, 0, 2);
+                ImGui::SameLine(); ImGui::HelpMarker("Scale of the temperature noise. Note that the temperature noise is the same as the map noise but with a different scale");
                 ImGui::TreePop();
             }
 
             if (ImGui::TreeNode("Humidity Settings")){
-                ImGui::Text("humidity temperature increment"); ImGui::SameLine(); ImGui::SliderFloat("##hti", &map.m_settings.m_humidity_temperature_increment, 0.0f, 5.0f);
+                ImGui::Text("humidity temperature increment"); 
+                ImGui::SameLine(); ImGui::SliderFloat("##hti", &map.m_settings.m_humidity_temperature_increment, 0.0f, 5.0f);
+                ImGui::SameLine(); ImGui::HelpMarker("Define how much the temperature changes in humidity, ie higher values ​​make it drier in hot places.");
+
                 ImGui::Text("humidity noise scale          "); ImGui::SameLine(); ImGui::SliderFloat("##hns", &map.m_settings.m_humidity_noise_scale, 0.0f, 5.0f);
+                ImGui::SameLine(); ImGui::HelpMarker("Scale of the humidity noise, note that the humidity noise is the same as the map noise, but with a different scale");
                 ImGui::TreePop();
             }
 
@@ -92,7 +162,7 @@ namespace gui{
             float humidity_in_mouse_pos     = map.m_humidity_map[mouse_map_position.x][mouse_map_position.y];
             float temperature_in_celcius    = map.temperature_to_celcius(temperature_in_mouse_pos);
 
-            ImGui::Text("Temperature : "); ImGui::SameLine(); 
+            ImGui::Text("Temperature "); ImGui::SameLine(); 
             ImGui::PushItemWidth(60.0f);
             ImGui::InputFloat("##Temperature", &temperature_in_mouse_pos,0.0f,0.0f,"%.3f", ImGuiInputTextFlags_ReadOnly);
             ImGui::SameLine(); 
@@ -103,14 +173,14 @@ namespace gui{
             ImGui::Text(celcius_temperature.c_str());
 
             // display humidity
-            ImGui::Text("Humidity    : "); ImGui::SameLine();
+            ImGui::Text("Humidity    "); ImGui::SameLine();
             ImGui::InputFloat("##Humidity", &humidity_in_mouse_pos,0.0f,0.0f, "%.3f", ImGuiInputTextFlags_ReadOnly);
 
             // display elevation and height in position
             float height_in_mouse_pos = map.m_height_map[mouse_map_position.x][mouse_map_position.y];
             float elevation = map.height_to_elevation(height_in_mouse_pos);
 
-            ImGui::Text("Height      : "); ImGui::SameLine();
+            ImGui::Text("Height      "); ImGui::SameLine();
             ImGui::InputFloat("##height", &height_in_mouse_pos, 0.0f, 0.0f, "%.3f", ImGuiInputTextFlags_ReadOnly);
             ImGui::SameLine();
 
@@ -128,7 +198,6 @@ namespace gui{
             else{
                 ImGui::Text("Null");
             }
-
         }
 
         size = ImGui::GetWindowSize();
@@ -322,28 +391,12 @@ namespace gui{
         if (save_type == SaveTypes::TEMPLATE){
             ImGui::Text("Template Name: ");
             ImGui::SameLine();
-            ImGui::TextDisabled("(?)");
 
-            if (ImGui::IsItemHovered()) {
-                ImGui::BeginTooltip();
-                ImGui::PushTextWrapPos(450.0f);
-                ImGui::TextUnformatted("This will save a new world template to ./data/world templates/{name}");
-                ImGui::PopTextWrapPos();
-                ImGui::EndTooltip();
-            }
         }
         if (save_type == SaveTypes::IMAGE){
             ImGui::Text("Image Name: ");
             ImGui::SameLine();
-            ImGui::TextDisabled("(?)");
-
-            if (ImGui::IsItemHovered()) {
-                ImGui::BeginTooltip();
-                ImGui::PushTextWrapPos(450.0f);
-                ImGui::TextUnformatted("This will save a new image to ./data/images/{name}");
-                ImGui::PopTextWrapPos();
-                ImGui::EndTooltip();
-            }
+            ImGui::HelpMarker("This will save a new world template to ./data/world templates/{name}");
         }
 
         ImGui::SameLine();

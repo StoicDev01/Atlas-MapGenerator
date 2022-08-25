@@ -67,7 +67,6 @@ MapGenerator::MapGenerator(uint32_t size_x, uint32_t size_y){
     m_settings.m_min_temperature_latitude = -50; // temperature at poles
     m_settings.m_max_temperature_latitude = 25;  // temperature at equator and tropics
 
-    m_settings.m_temperature_altitude_increment = 0.95f;
     m_settings.m_temperature_noise_scale = 1.381f;
     m_settings.m_max_temperature_at_sea = 25.0f;
 
@@ -258,7 +257,7 @@ float MapGenerator::get_temperature_from(float x, float y, bool use_map_data = t
     
     bool at_sea_level = false;
 
-    // normalize temperature m_noise
+    // normalize temperature noise
     temperature_noise = ((temperature_noise + 1) / 2);
 
     // poles to equator temperature
@@ -266,12 +265,14 @@ float MapGenerator::get_temperature_from(float x, float y, bool use_map_data = t
         // generate temperature latitude from north pole to equator
         temperature_latitude = inverseLerp(0.0, m_settings.m_size_y/2, y);
     }
+
     else if (y > m_settings.m_size_y / 2){
         // generate temperature latitude from south pole to equator
         temperature_latitude = inverseLerp(m_settings.m_size_y, m_settings.m_size_y/2, y);
     }
+
     temperature_latitude = std::clamp(temperature_latitude, 0.0f, 1.0f);
-    temperature_latitude = evaluate_latitude(temperature_latitude);
+    temperature_latitude = smoothstep(m_settings.m_latitude_a,m_settings.m_latitude_b, temperature_latitude );
 
     /// booleans
     // verify if is at poles
@@ -286,8 +287,8 @@ float MapGenerator::get_temperature_from(float x, float y, bool use_map_data = t
 
     // transform in a range from min_temperature_latitude to max_temperature latitude
     temperature_latitude = (temperature_latitude * (m_settings.m_max_temperature_latitude+ abs(m_settings.m_min_temperature_latitude))+m_settings.m_min_temperature_latitude);
-    
-    /// generate temperature altitude with latitude and height map
+
+    /// generate temperature altitude with and height map
     float temperature_altitude_subtract = (m_settings.m_temperature_a * pow(m_settings.m_temperature_b, elevation) + 0.0);
 
     // combine altitude with latitude temperature
