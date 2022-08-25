@@ -1,7 +1,7 @@
 {
   "m_current_fallof_type": 0,
-  "m_fallof_a": 3.0,
-  "m_fallof_b": 2.134000062942505,
+  "m_fallof_a": 0.699999988079071,
+  "m_fallof_b": 1.0,
   "m_fallof_type": "Square",
   "m_frequency_slider": 0.2150000035762787,
   "m_gain_slider": 0.5,

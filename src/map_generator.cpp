@@ -1,4 +1,12 @@
 #include "map_generator.h"
+#include <algorithm>
+
+float smoothstep(float edge0, float edge1, float x) {
+    // Scale, bias and saturate x to 0..1 range
+    x = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+    // Evaluate polynomial
+    return x * x * (3 - 2 * x);
+}
 
 /* Biome */
 Biome::Biome(std::string name, core::Range<float> height_range, core::Range<float> temperature_range, core::Range<float> humidity_range, core::graphics::Color color){
@@ -213,15 +221,19 @@ float MapGenerator::get_fallof_map_from(float x, float y){
         core::Vector2i center = core::Vector2i(m_settings.m_size_x/2, m_settings.m_size_y/2);
         core::Vector2i current_pos(x, y);
 
-        float d = glm::distance(core::Vector2f(center), core::Vector2f(current_pos));
-        return evaluate_fallof_map(d / (m_settings.m_size_y * 0.6) );
+        float distance = glm::distance(core::Vector2f(center), core::Vector2f(current_pos));
+
+        // make distance range between 0 and 1
+        float distance_normalized = std::clamp(0.0f, 1.0f, distance / (m_settings.m_size_y/ 2.0f) );
+
+        return smoothstep(m_settings.m_fallof_a, m_settings.m_fallof_b, distance_normalized);
     }
     else if (m_settings.m_fallof_type == "Square"){
         float nx = std::abs(x *2.0f -  m_settings.m_size_x) / m_settings.m_size_x;
         float ny = std::abs(y *2.0f -  m_settings.m_size_y) / m_settings.m_size_y;
 
         float value = std::max(nx, ny);
-        float value2 = evaluate_fallof_map(value);
+        float value2 = smoothstep(m_settings.m_fallof_a, m_settings.m_fallof_b, value);
         return value2;
     }
     return 0.0f;

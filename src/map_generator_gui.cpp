@@ -44,7 +44,7 @@ namespace gui{
                 if (map.m_settings.m_use_fallof_map){
                     ImGui::Text("Fallof type: "); ImGui::SameLine(); ImGui::Combo("##FallofType", &map.m_settings.m_current_fallof_type, fallof_types, IM_ARRAYSIZE(fallof_types));
                     ImGui::Text("Fallof A   : "); ImGui::SameLine(); ImGui::InputFloat("##FallofA", &map.m_settings.m_fallof_a, 0, 5);
-                    ImGui::Text("Fallof B   : "); ImGui::SameLine(); ImGui::SliderFloat("##FallofB", &map.m_settings.m_fallof_b, 0, 5);
+                    ImGui::Text("Fallof B   : "); ImGui::SameLine(); ImGui::InputFloat("##FallofB", &map.m_settings.m_fallof_b, 0, 5);
                 }
                 ImGui::TreePop();
             }
