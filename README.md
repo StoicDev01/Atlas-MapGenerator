@@ -4,6 +4,9 @@ This project uses [Core framework](https://github.com/izkeas/Core)
 
 ![Map generator Image](./MapGenerator.png "Map Generator Image")
 
+## NOTE
+This repository has been archived because I'm not working on it anymore, maybe I'll remake this project into a website form in the future
+
 ## Features
 - Generate Pixel Art maps of a World
 - set biomes with temperature, humidity and height
